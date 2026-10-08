@@ -7,7 +7,7 @@
     $image = $product->image ? media_url($product->image) : null;
 @endphp
 
-<article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70">
+<article data-reveal class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70">
     <a href="{{ route('products.show', $product) }}" class="relative block aspect-[4/3] overflow-hidden bg-gradient-to-br from-indigo-50 to-slate-100">
         @if ($image)
             <img src="{{ $image }}" alt="{{ $product->name }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">

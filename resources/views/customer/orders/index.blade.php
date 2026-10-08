@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white" data-reveal>
         @if ($orders->isEmpty())
             <div class="p-12 text-center">
                 <x-ui-icon name="receipt" class="mx-auto h-12 w-12 text-slate-300" />

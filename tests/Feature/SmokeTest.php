@@ -81,6 +81,8 @@ class SmokeTest extends TestCase
             '/digitalsup/invoices',
             '/digitalsup/sliders',
             '/digitalsup/sliders/create',
+            '/digitalsup/banners',
+            '/digitalsup/banners/create',
             '/digitalsup/contact-messages',
             '/digitalsup/users',
             '/digitalsup/manage-settings',
@@ -232,5 +234,23 @@ class SmokeTest extends TestCase
 
         $this->actingAs($admin)->get('/digitalsup/orders')->assertOk();
         $this->actingAs($admin)->get('/digitalsup/orders/' . $order->id)->assertOk();
+    }
+
+    public function test_product_description_is_sanitized_against_xss(): void
+    {
+        $category = Category::create(['name' => 'Security', 'slug' => 'security', 'is_active' => true]);
+
+        $product = Product::create([
+            'category_id' => $category->id,
+            'name' => 'XSS Test',
+            'slug' => 'xss-test',
+            'description' => '<p>Hello</p><script>alert(1)</script><a href="javascript:alert(1)">x</a><img src=x onerror=alert(1)>',
+            'is_active' => true,
+        ]);
+
+        $this->assertStringContainsString('Hello', $product->description);
+        $this->assertStringNotContainsString('<script', $product->description);
+        $this->assertStringNotContainsString('javascript:', $product->description);
+        $this->assertStringNotContainsString('onerror', $product->description);
     }
 }

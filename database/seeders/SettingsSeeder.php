@@ -54,6 +54,23 @@ class SettingsSeeder extends Seeder
 
             // Invoice
             'invoice_prefix' => 'INV',
+
+            // SEO / Meta
+            'default_meta_description' => 'Buy premium digital products and subscriptions online with instant delivery.',
+            'default_meta_keywords' => 'digital products, subscriptions, online store',
+            'meta_home_title' => '',
+            'meta_home_description' => '',
+            'meta_products_title' => 'Products',
+            'meta_products_description' => 'Browse our full catalogue of premium digital products.',
+            'meta_about_title' => 'About Us',
+            'meta_about_description' => '',
+            'meta_contact_title' => 'Contact Us',
+            'meta_contact_description' => '',
+
+            // Security / reCAPTCHA (Google test keys — always pass, work on localhost)
+            'recaptcha_enabled' => '1',
+            'recaptcha_site_key' => '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+            'recaptcha_secret_key' => '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe',
         ];
 
         foreach ($settings as $key => $value) {

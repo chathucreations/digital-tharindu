@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 
-@section('title', 'Contact Us')
+@section('title', setting('meta_contact_title') ?: 'Contact Us')
+@section('meta_description', setting('meta_contact_description'))
+@section('canonical', route('contact'))
 
 @section('content')
     <section class="relative overflow-hidden bg-slate-900">
@@ -13,7 +15,7 @@
 
     <section class="mx-auto max-w-7xl px-4 py-16">
         <div class="grid gap-8 lg:grid-cols-[360px_1fr]">
-            <div class="space-y-4">
+            <div class="space-y-4" data-reveal="left">
                 @foreach (array_filter([
                     setting('contact_address') ? ['icon' => 'map', 'label' => 'Address', 'value' => setting('contact_address')] : null,
                     setting('contact_phone') ? ['icon' => 'phone', 'label' => 'Phone', 'value' => setting('contact_phone')] : null,
@@ -32,7 +34,7 @@
                 @endforeach
             </div>
 
-            <div class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
+            <div class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8" data-reveal="right">
                 <h2 class="text-2xl font-extrabold text-slate-900">Send us a message</h2>
                 <p class="mt-1 text-sm text-slate-500">Fill in the form below and we'll get back to you as soon as possible.</p>
 
@@ -74,6 +76,14 @@
                         <label class="mb-1.5 block text-sm font-semibold text-slate-700">Message *</label>
                         <textarea name="message" rows="5" required
                                   class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('message') }}</textarea>
+                    </div>
+                    <div class="sm:col-span-2">
+                        @if (setting('recaptcha_enabled') && setting('recaptcha_site_key'))
+                            <div class="g-recaptcha" data-sitekey="{{ setting('recaptcha_site_key') }}"></div>
+                            @error('g-recaptcha-response')
+                                <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
+                            @enderror
+                        @endif
                     </div>
                     <div class="sm:col-span-2">
                         <button type="submit"

@@ -23,7 +23,7 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:contact');
 
 /*
 |--------------------------------------------------------------------------
@@ -43,14 +43,14 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name
 Route::middleware('auth')->group(function () {
     // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
-    Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buy');
-    Route::delete('/cart/{key}', [CartController::class, 'destroy'])->name('cart.destroy');
-    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::post('/cart', [CartController::class, 'store'])->name('cart.store')->middleware('throttle:cart');
+    Route::post('/cart/buy-now', [CartController::class, 'buyNow'])->name('cart.buy')->middleware('throttle:cart');
+    Route::delete('/cart/{key}', [CartController::class, 'destroy'])->name('cart.destroy')->middleware('throttle:cart');
+    Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')->middleware('throttle:cart');
 
     // Checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store')->middleware('throttle:checkout');
     Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
 
     // Marx IPG gateway callbacks / sandbox
@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [Customer\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/orders', [Customer\OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [Customer\OrderController::class, 'show'])->name('orders.show');
-        Route::post('/orders/{order}/payment-proof', [Customer\OrderController::class, 'uploadProof'])->name('orders.proof');
+        Route::post('/orders/{order}/payment-proof', [Customer\OrderController::class, 'uploadProof'])->name('orders.proof')->middleware('throttle:upload');
         Route::get('/invoices', [Customer\InvoiceController::class, 'index'])->name('invoices.index');
         Route::get('/invoices/{invoice}/download', [Customer\OrderController::class, 'invoice'])->name('invoices.download');
         Route::get('/products', [Customer\ProductController::class, 'index'])->name('products');

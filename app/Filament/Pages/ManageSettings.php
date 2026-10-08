@@ -40,6 +40,7 @@ class ManageSettings extends Page
         $settings['mail_password'] = null;
         $settings['marx_secret'] = null;
         $settings['marx_api_key'] = null;
+        $settings['recaptcha_secret_key'] = null;
 
         $this->form->fill($settings);
     }
@@ -169,6 +170,52 @@ class ManageSettings extends Page
                             ->schema([
                                 TextInput::make('invoice_prefix')->label('Invoice Number Prefix')->default('INV'),
                             ]),
+                        Tab::make('SEO / Meta')
+                            ->icon(Heroicon::OutlinedGlobeAlt)
+                            ->schema([
+                                FileUpload::make('default_og_image')
+                                    ->label('Default social share image')
+                                    ->image()
+                                    ->directory('seo')
+                                    ->columnSpanFull(),
+                                Textarea::make('default_meta_description')
+                                    ->label('Default meta description')
+                                    ->rows(2)
+                                    ->helperText('Used when a page has no specific description.')
+                                    ->columnSpanFull(),
+                                TextInput::make('default_meta_keywords')
+                                    ->label('Default meta keywords')
+                                    ->helperText('Comma separated.')
+                                    ->columnSpanFull(),
+
+                                TextInput::make('meta_home_title')->label('Home — Meta Title')->maxLength(255),
+                                TextInput::make('meta_products_title')->label('Products — Meta Title')->maxLength(255),
+                                Textarea::make('meta_home_description')->label('Home — Meta Description')->rows(2),
+                                Textarea::make('meta_products_description')->label('Products — Meta Description')->rows(2),
+                                TextInput::make('meta_about_title')->label('About — Meta Title')->maxLength(255),
+                                TextInput::make('meta_contact_title')->label('Contact — Meta Title')->maxLength(255),
+                                Textarea::make('meta_about_description')->label('About — Meta Description')->rows(2),
+                                Textarea::make('meta_contact_description')->label('Contact — Meta Description')->rows(2),
+                            ])
+                            ->columns(2),
+                        Tab::make('Security')
+                            ->icon(Heroicon::OutlinedShieldCheck)
+                            ->schema([
+                                Toggle::make('recaptcha_enabled')
+                                    ->label('Enable Google reCAPTCHA')
+                                    ->helperText('Protects the login and register forms from bots. Works on localhost with the default test keys.')
+                                    ->default(false),
+                                TextInput::make('recaptcha_site_key')
+                                    ->label('reCAPTCHA Site Key')
+                                    ->maxLength(255)
+                                    ->helperText('Get your keys from https://www.google.com/recaptcha/admin (v2 checkbox).'),
+                                TextInput::make('recaptcha_secret_key')
+                                    ->label('reCAPTCHA Secret Key')
+                                    ->password()
+                                    ->revealable()
+                                    ->helperText('Leave blank to keep the current secret.'),
+                            ])
+                            ->columns(2),
                     ])
                     ->columnSpanFull(),
             ])
@@ -191,7 +238,12 @@ class ManageSettings extends Page
             unset($data['marx_api_key']);
         }
 
+        if (blank($data['recaptcha_secret_key'] ?? null)) {
+            unset($data['recaptcha_secret_key']);
+        }
+
         $data['marx_enabled'] = ! empty($data['marx_enabled']) ? '1' : '0';
+        $data['recaptcha_enabled'] = ! empty($data['recaptcha_enabled']) ? '1' : '0';
 
         Settings::setMany($data);
 

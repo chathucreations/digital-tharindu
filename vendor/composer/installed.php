@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'digital-store/digital-store',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-development',
+        'version' => 'dev-development',
+        'reference' => 'e723b83551c7d49f502cd774a04eee3a8e7bd52e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -140,9 +140,9 @@
             'dev_requirement' => false,
         ),
         'digital-store/digital-store' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-development',
+            'version' => 'dev-development',
+            'reference' => 'e723b83551c7d49f502cd774a04eee3a8e7bd52e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

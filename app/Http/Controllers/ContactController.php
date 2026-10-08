@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
+use App\Rules\Recaptcha;
 use App\Rules\SriLankanPhone;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class ContactController extends Controller
             'phone' => ['nullable', 'string', new SriLankanPhone()],
             'subject' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
+            'g-recaptcha-response' => [new Recaptcha()],
         ]);
 
         $message = ContactMessage::create($data);

@@ -5,3 +5,123 @@
 [x-cloak] {
     display: none !important;
 }
+
+/* ------------------------------------------------------------------ */
+/* Scroll reveal animations                                            */
+/* Only active when JS is available (html.js) so content is never      */
+/* hidden if JavaScript fails to load.                                 */
+/* ------------------------------------------------------------------ */
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.js [data-reveal='left'] {
+    transform: translateX(-34px);
+}
+
+.js [data-reveal='right'] {
+    transform: translateX(34px);
+}
+
+.js [data-reveal='scale'] {
+    transform: scale(0.94);
+}
+
+.js [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframe utilities                                                  */
+/* ------------------------------------------------------------------ */
+@keyframes ds-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes ds-floaty {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes ds-floaty-slow {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-18px) rotate(3deg);
+    }
+}
+
+@keyframes ds-pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.45);
+    }
+    70% {
+        box-shadow: 0 0 0 14px rgba(99, 102, 241, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+.animate-fade-up {
+    animation: ds-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-floaty {
+    animation: ds-floaty 6s ease-in-out infinite;
+}
+
+.animate-floaty-slow {
+    animation: ds-floaty-slow 9s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+    animation: ds-pulse-ring 2.4s infinite;
+}
+
+.delay-100 {
+    animation-delay: 0.1s;
+}
+.delay-200 {
+    animation-delay: 0.2s;
+}
+.delay-300 {
+    animation-delay: 0.3s;
+}
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .animate-fade-up,
+    .animate-floaty,
+    .animate-floaty-slow,
+    .animate-pulse-ring {
+        animation: none !important;
+    }
+}

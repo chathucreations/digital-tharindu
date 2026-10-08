@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 
 @section('title', setting('site_name', config('app.name')))
+@section('meta_title', setting('meta_home_title'))
+@section('meta_description', setting('meta_home_description'))
 
 @section('content')
     <!-- Hero / Slider -->
@@ -26,7 +28,7 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-900/60 to-transparent"></div>
                     <div class="absolute inset-0 flex items-center">
                         <div class="mx-auto w-full max-w-7xl px-6">
-                            <div class="max-w-2xl">
+                            <div class="max-w-2xl animate-fade-up">
                                 <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-indigo-200 ring-1 ring-white/20">
                                     <x-ui-icon name="sparkles" class="h-3.5 w-3.5" /> Premium Digital Products
                                 </span>
@@ -60,7 +62,7 @@
     @else
         <section class="relative overflow-hidden bg-slate-900">
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-700 via-indigo-600 to-violet-600 opacity-90"></div>
-            <div class="relative mx-auto max-w-7xl px-6 py-24 text-center">
+            <div class="relative mx-auto max-w-7xl px-6 py-24 text-center animate-fade-up">
                 <h1 class="text-4xl font-extrabold text-white md:text-5xl">{{ setting('tagline', 'Premium Digital Products, Delivered Instantly') }}</h1>
                 <p class="mx-auto mt-4 max-w-2xl text-indigo-100">{{ setting('site_description', 'Buy, download and manage your digital subscriptions in one place.') }}</p>
                 <a href="{{ route('products.index') }}" class="mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-indigo-700 shadow-lg transition hover:bg-indigo-50">
@@ -72,7 +74,7 @@
 
     <!-- Value props -->
     <section class="relative z-20 mx-auto -mt-10 max-w-7xl px-4">
-        <div class="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60 sm:grid-cols-2 lg:grid-cols-4">
+        <div data-reveal class="grid gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/60 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ([
                 ['icon' => 'bolt', 'title' => 'Instant Delivery', 'text' => 'Get access immediately after payment.'],
                 ['icon' => 'shield-check', 'title' => 'Secure Payments', 'text' => 'Protected by trusted gateways.'],
@@ -95,7 +97,7 @@
     <!-- Featured products -->
     @if ($featured->isNotEmpty())
         <section class="mx-auto mt-20 max-w-7xl px-4">
-            <div class="mb-8 flex items-end justify-between">
+            <div data-reveal class="mb-8 flex items-end justify-between">
                 <div>
                     <span class="text-sm font-bold uppercase tracking-wider text-indigo-600">Handpicked</span>
                     <h2 class="mt-1 text-3xl font-extrabold text-slate-900">{{ setting('featured_title', 'Featured Products') }}</h2>
@@ -115,10 +117,52 @@
         </section>
     @endif
 
+    <!-- Full-width promo banners -->
+    @foreach ($banners as $banner)
+        @php
+            $align = match ($banner->alignment) {
+                'left' => 'items-start text-left',
+                'right' => 'items-end text-right',
+                default => 'items-center text-center',
+            };
+            $justify = match ($banner->alignment) {
+                'left' => 'mr-auto',
+                'right' => 'ml-auto',
+                default => 'mx-auto',
+            };
+        @endphp
+        <section class="relative mt-20 w-full overflow-hidden">
+            @if ($banner->image)
+                <img src="{{ media_url($banner->image) }}" alt="{{ $banner->title }}" class="absolute inset-0 h-full w-full object-cover">
+                <div class="absolute inset-0 bg-slate-900/65"></div>
+            @else
+                <div class="absolute inset-0 bg-gradient-to-r from-indigo-700 to-violet-700"></div>
+            @endif
+
+            <div class="relative mx-auto w-full max-w-7xl px-6 py-16 md:py-20">
+                <div data-reveal="scale" class="flex flex-col {{ $align }}">
+                    <div class="max-w-2xl {{ $justify }}">
+                        <h2 class="text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-4xl">{{ $banner->title }}</h2>
+                        @if ($banner->subtitle)
+                            <p class="mt-3 text-sm text-white/90 sm:text-base md:text-lg">{{ $banner->subtitle }}</p>
+                        @endif
+                        @if ($banner->link)
+                            <a href="{{ $banner->link }}"
+                               class="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-indigo-700 shadow-lg transition hover:bg-indigo-50">
+                                {{ $banner->button_text ?: 'Learn More' }}
+                                <x-ui-icon name="arrow-right" class="h-4 w-4" />
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endforeach
+
     <!-- Category sections -->
     @foreach ($categories as $category)
         <section class="mx-auto mt-20 max-w-7xl px-4">
-            <div class="mb-8 flex items-end justify-between">
+            <div data-reveal class="mb-8 flex items-end justify-between">
                 <div>
                     <h2 class="text-2xl font-extrabold text-slate-900">{{ $category->name }}</h2>
                     @if ($category->description)
@@ -139,7 +183,7 @@
 
     <!-- CTA -->
     <section class="mx-auto mt-20 max-w-7xl px-4">
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-700 to-violet-700 px-8 py-14 text-center">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-700 to-violet-700 px-8 py-14 text-center" data-reveal="scale">
             <div class="relative">
                 <h2 class="text-3xl font-extrabold text-white">Ready to get started?</h2>
                 <p class="mx-auto mt-3 max-w-xl text-indigo-100">Create your account and unlock instant access to all our premium digital products.</p>

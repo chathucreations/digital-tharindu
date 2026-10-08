@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Auth\MultiFactor\App\AppAuthentication;
+use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -11,7 +13,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -29,9 +30,16 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('digitalsup')
             ->login()
+            ->profile()
+            ->multiFactorAuthentication([
+                AppAuthentication::make()
+                    ->brandName((string) config('app.name'))
+                    ->recoverable(),
+                EmailAuthentication::make(),
+            ])
             ->brandName(fn () => setting('site_name', config('app.name')))
             ->brandLogo(fn () => setting('logo') ? Storage::disk('public')->url(setting('logo')) : null)
-            ->favicon(fn () => setting('favicon') ? Storage::disk('public')->url(setting('favicon')) : null)
+            ->favicon(fn () => setting('favicon') ? Storage::disk('public')->url(setting('favicon')) : asset('favicon.svg'))
             ->colors([
                 'primary' => Color::Indigo,
             ])
@@ -43,7 +51,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

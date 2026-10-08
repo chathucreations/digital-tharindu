@@ -62,6 +62,31 @@ class ProductForm
                             ->label('Featured on home page'),
                     ])
                     ->columns(3),
+                Section::make('SEO / Meta')
+                    ->description('Optional — used for search engines and social sharing.')
+                    ->collapsed()
+                    ->schema([
+                        TextInput::make('meta_title')
+                            ->label('Meta Title')
+                            ->maxLength(255)
+                            ->helperText('Leave blank to use the product name.'),
+                        TextInput::make('meta_keywords')
+                            ->label('Meta Keywords')
+                            ->maxLength(255)
+                            ->helperText('Comma separated keywords.'),
+                        Textarea::make('meta_description')
+                            ->label('Meta Description')
+                            ->rows(3)
+                            ->maxLength(300)
+                            ->helperText('Recommended up to 160 characters.')
+                            ->columnSpanFull(),
+                        FileUpload::make('og_image')
+                            ->label('Social share image (OG image)')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('seo'),
+                    ])
+                    ->columns(2),
                 Section::make('Price Variations')
                     ->description('Add monthly and/or yearly billing prices.')
                     ->schema([

@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
+    <script>document.documentElement.classList.add('js');</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', setting('site_name', config('app.name'))) — {{ setting('tagline', 'Digital Products Store') }}</title>
-    <meta name="description" content="@yield('meta_description', setting('site_description', 'Buy premium digital products online.'))">
+    @php
+        $siteName = setting('site_name', config('app.name'));
+        $metaTitle = trim($__env->yieldContent('meta_title')) ?: (trim($__env->yieldContent('title')) ?: $siteName);
+        $fullTitle = $metaTitle === $siteName ? $siteName : $metaTitle . ' — ' . $siteName;
+        $metaDescription = trim($__env->yieldContent('meta_description')) ?: setting('default_meta_description', setting('site_description', ''));
+        $metaKeywords = trim($__env->yieldContent('meta_keywords')) ?: setting('default_meta_keywords', '');
+        $ogImage = trim($__env->yieldContent('og_image')) ?: media_url(setting('default_og_image'));
+        $canonical = trim($__env->yieldContent('canonical')) ?: url()->current();
+    @endphp
+
+    <title>{{ $fullTitle }}</title>
+    @if ($metaDescription)
+        <meta name="description" content="{{ $metaDescription }}">
+    @endif
+    @if ($metaKeywords)
+        <meta name="keywords" content="{{ $metaKeywords }}">
+    @endif
+    <link rel="canonical" href="{{ $canonical }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:title" content="{{ $fullTitle }}">
+    <meta property="og:url" content="{{ $canonical }}">
+    @if ($metaDescription)
+        <meta property="og:description" content="{{ $metaDescription }}">
+    @endif
+    @if ($ogImage)
+        <meta property="og:image" content="{{ $ogImage }}">
+    @endif
+
+    <meta name="twitter:card" content="{{ $ogImage ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:title" content="{{ $fullTitle }}">
+    @if ($metaDescription)
+        <meta name="twitter:description" content="{{ $metaDescription }}">
+    @endif
+    @if ($ogImage)
+        <meta name="twitter:image" content="{{ $ogImage }}">
+    @endif
 
     @if (setting('favicon'))
         <link rel="icon" href="{{ media_url(setting('favicon')) }}">
+    @else
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+        <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('favicon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
     @endif
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,11 +60,15 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @if (setting('recaptcha_enabled') && setting('recaptcha_site_key') && request()->routeIs('contact'))
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
+
     <style>
         body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="overflow-x-hidden bg-slate-50 text-slate-800 antialiased">
 
 @php
     $cartCount = count(session('cart', []));
@@ -194,6 +240,19 @@
         &copy; {{ date('Y') }} {{ setting('site_name', config('app.name')) }}. All rights reserved.
     </div>
 </footer>
+
+<!-- Back to top -->
+<div x-data="{ show: false }" @scroll.window.throttle.200ms="show = window.scrollY > 600"
+     class="fixed bottom-24 right-6 z-40">
+    <button x-show="show" x-transition.opacity
+            @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-white shadow-lg shadow-slate-900/30 transition hover:bg-slate-700"
+            aria-label="Back to top">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0-6 6m6-6 6 6" />
+        </svg>
+    </button>
+</div>
 
 <!-- Floating WhatsApp button -->
 @if (setting('whatsapp_number'))

@@ -10,7 +10,7 @@
 
     <!-- Bank transfer details -->
     @if (setting('bank_name') || setting('bank_account_number'))
-        <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-6">
+        <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-6" data-reveal>
             <h2 class="flex items-center gap-2 text-base font-extrabold text-slate-900">
                 <x-ui-icon name="bank" class="h-5 w-5 text-indigo-600" /> Bank Transfer Details
             </h2>
@@ -40,7 +40,7 @@
     @endif
 
     <!-- Invoices -->
-    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white" data-reveal>
         @if ($invoices->isEmpty())
             <div class="p-12 text-center">
                 <x-ui-icon name="receipt" class="mx-auto h-12 w-12 text-slate-300" />

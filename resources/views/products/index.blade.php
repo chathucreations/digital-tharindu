@@ -1,6 +1,9 @@
 @extends('layouts.frontend')
 
-@section('title', 'Products')
+@section('title', $selected?->meta_title ?: setting('meta_products_title') ?: ($selected?->name ?? 'Products'))
+@section('meta_description', $selected?->meta_description ?: setting('meta_products_description'))
+@section('meta_keywords', $selected?->meta_keywords ?: setting('default_meta_keywords'))
+@section('og_image', $selected?->og_image ? media_url($selected->og_image) : null)
 
 @section('content')
     <section class="border-b border-slate-200 bg-white">
@@ -22,7 +25,7 @@
     <div class="mx-auto max-w-7xl px-4 py-10">
         <div class="grid gap-8 lg:grid-cols-[260px_1fr]">
             <!-- Sidebar filters -->
-            <aside class="space-y-6">
+            <aside class="space-y-6" data-reveal="left">
                 <form method="GET" action="{{ route('products.index') }}" class="rounded-2xl border border-slate-200 bg-white p-4">
                     <label class="mb-2 block text-sm font-bold text-slate-900">Search</label>
                     <div class="flex gap-2">

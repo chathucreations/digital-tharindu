@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
@@ -13,6 +14,12 @@ class HomeController extends Controller
     {
         $sliders = Slider::query()
             ->where('is_active', true)
+            ->orderBy('sort_order')
+            ->get();
+
+        $banners = Banner::query()
+            ->where('is_active', true)
+            ->where('position', 'home_after_featured')
             ->orderBy('sort_order')
             ->get();
 
@@ -33,6 +40,6 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        return view('home', compact('sliders', 'categories', 'featured'));
+        return view('home', compact('sliders', 'categories', 'featured', 'banners'));
     }
 }

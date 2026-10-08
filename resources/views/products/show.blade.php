@@ -1,7 +1,10 @@
 @extends('layouts.frontend')
 
-@section('title', $product->name)
-@section('meta_description', $product->short_description ?? $product->name)
+@section('title', $product->meta_title ?: $product->name)
+@section('meta_description', $product->meta_description ?: $product->short_description)
+@section('meta_keywords', $product->meta_keywords ?: setting('default_meta_keywords'))
+@section('og_image', $product->og_image ? media_url($product->og_image) : ($product->image ? media_url($product->image) : null))
+@section('canonical', route('products.show', $product))
 
 @section('content')
     @php
@@ -22,7 +25,7 @@
 
         <div class="mt-6 grid gap-10 lg:grid-cols-2">
             <!-- Image -->
-            <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white">
+            <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white" data-reveal="left">
                 <div class="aspect-[4/3] bg-gradient-to-br from-indigo-50 to-slate-100">
                     @if ($image)
                         <img src="{{ $image }}" alt="{{ $product->name }}" class="h-full w-full object-cover">
@@ -35,7 +38,7 @@
             </div>
 
             <!-- Details -->
-            <div>
+            <div data-reveal="right">
                 <span class="text-sm font-bold uppercase tracking-wide text-indigo-600">{{ $product->category?->name }}</span>
                 <h1 class="mt-2 text-3xl font-extrabold text-slate-900">{{ $product->name }}</h1>
                 @if ($product->short_description)

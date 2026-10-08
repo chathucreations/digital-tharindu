@@ -8,7 +8,7 @@
         <p class="mt-1 text-slate-500">Here's an overview of your account and orders.</p>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
         @foreach ([
             ['label' => 'Total Orders', 'value' => $stats['orders'], 'icon' => 'receipt', 'class' => 'bg-indigo-50 text-indigo-600'],
             ['label' => 'Completed', 'value' => $stats['completed'], 'icon' => 'check-circle', 'class' => 'bg-emerald-50 text-emerald-600'],
@@ -25,7 +25,7 @@
         @endforeach
     </div>
 
-    <div class="mt-8 rounded-2xl border border-slate-200 bg-white">
+    <div class="mt-8 rounded-2xl border border-slate-200 bg-white" data-reveal>
         <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
             <h2 class="font-extrabold text-slate-900">Recent Orders</h2>
             <a href="{{ route('customer.orders.index') }}" class="text-sm font-bold text-indigo-600 hover:text-indigo-700">View all</a>

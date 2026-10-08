@@ -34,6 +34,24 @@ class CategoryForm
                 TextInput::make('sort_order')
                     ->numeric()
                     ->default(0),
+                TextInput::make('meta_title')
+                    ->label('Meta Title')
+                    ->maxLength(255)
+                    ->helperText('Leave blank to use the category name.'),
+                TextInput::make('meta_keywords')
+                    ->label('Meta Keywords')
+                    ->maxLength(255)
+                    ->helperText('Comma separated keywords.'),
+                Textarea::make('meta_description')
+                    ->label('Meta Description')
+                    ->rows(3)
+                    ->maxLength(300)
+                    ->columnSpanFull(),
+                FileUpload::make('og_image')
+                    ->label('Social share image (OG image)')
+                    ->image()
+                    ->imageEditor()
+                    ->directory('seo'),
             ])
             ->columns(2);
     }

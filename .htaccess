@@ -1,0 +1,25 @@
+<IfModule mod_headers.c>
+
+Header unset ETag
+
+</IfModule>
+
+FileETag None
+# Disable Etags END
+
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$ https://digital.chathu.com.lk/$1 [R,L]
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    # Turn Off mod_dir Redirect For Existing Directories
+  DirectorySlash Off
+  
+  # Rewrite For Public Folder
+  RewriteEngine on
+  RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

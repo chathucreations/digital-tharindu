@@ -23,6 +23,10 @@ class Category extends Model
         'image',
         'is_active',
         'sort_order',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'og_image',
     ];
 
     protected function casts(): array

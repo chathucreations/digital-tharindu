@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 
-@section('title', 'About Us')
+@section('title', setting('meta_about_title') ?: 'About Us')
+@section('meta_description', setting('meta_about_description'))
+@section('canonical', route('about'))
 
 @section('content')
     <section class="relative overflow-hidden bg-slate-900">
@@ -15,7 +17,7 @@
 
     <section class="mx-auto max-w-7xl px-4 py-16">
         <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
+            <div data-reveal="left">
                 <span class="text-sm font-bold uppercase tracking-wider text-indigo-600">Our Story</span>
                 <h2 class="mt-2 text-3xl font-extrabold text-slate-900">Digital products made simple</h2>
                 <div class="prose prose-slate mt-4 max-w-none text-slate-600">
@@ -45,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-4 sm:grid-cols-2" data-reveal="right">
                 @foreach ([
                     ['icon' => 'bolt', 'title' => 'Instant Access', 'text' => 'Your products are unlocked the moment your payment is confirmed.'],
                     ['icon' => 'shield-check', 'title' => 'Secure & Safe', 'text' => 'Payments are processed through trusted, PCI-compliant gateways.'],

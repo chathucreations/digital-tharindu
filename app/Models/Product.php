@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasSlug;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 class Product extends Model
 {
@@ -29,6 +32,10 @@ class Product extends Model
         'is_featured',
         'access_details',
         'file_path',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'og_image',
     ];
 
     protected function casts(): array
@@ -76,6 +83,38 @@ class Product extends Model
     public function hasCycle(string $cycle): bool
     {
         return $this->variations->contains('billing_cycle', $cycle);
+    }
+
+    /**
+     * Sanitize the rich-text description on save to prevent stored XSS.
+     */
+    protected function description(): Attribute
+    {
+        return Attribute::make(
+            set: fn (?string $value) => $value === null ? null : self::sanitizeHtml($value),
+        );
+    }
+
+    public static function sanitizeHtml(string $html): string
+    {
+        $config = (new HtmlSanitizerConfig())
+            ->allowSafeElements()
+            ->allowLinkSchemes(['http', 'https', 'mailto'])
+            ->allowRelativeLinks()
+            ->allowRelativeMedias()
+            ->allowElement('u')
+            ->allowElement('span')
+            ->allowElement('div')
+            ->allowElement('table')
+            ->allowElement('thead')
+            ->allowElement('tbody')
+            ->allowElement('tr')
+            ->allowElement('th')
+            ->allowElement('td')
+            ->allowAttribute('class', '*')
+            ->allowAttribute('style', '*');
+
+        return (new HtmlSanitizer($config))->sanitize($html);
     }
 
     public function getActivitylogOptions(): LogOptions
