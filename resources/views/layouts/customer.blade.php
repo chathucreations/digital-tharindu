@@ -19,7 +19,7 @@
                         @if (auth()->user()->avatar)
                             <img src="{{ auth()->user()->avatar }}" class="h-11 w-11 rounded-full object-cover" alt="">
                         @else
-                            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">
+                            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#1D4ED8] font-bold text-white">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </span>
                         @endif
@@ -32,7 +32,7 @@
                     <nav class="mt-3 space-y-1">
                         @foreach ($menu as $item)
                             <a href="{{ route($item['route']) }}"
-                               class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition {{ request()->routeIs($item['route']) ? 'bg-indigo-600 text-white' : 'text-slate-600 hover:bg-slate-100' }}">
+                               class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition {{ request()->routeIs($item['route']) ? 'bg-[#052f88] text-white' : 'text-slate-600 hover:bg-slate-100' }}">
                                 <x-ui-icon :name="$item['icon']" class="h-5 w-5" />
                                 {{ $item['label'] }}
                             </a>

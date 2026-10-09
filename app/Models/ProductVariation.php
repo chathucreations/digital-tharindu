@@ -17,12 +17,14 @@ class ProductVariation extends Model
         'product_id',
         'billing_cycle',
         'price',
+        'original_price',
     ];
 
     protected function casts(): array
     {
         return [
             'price' => 'decimal:2',
+            'original_price' => 'decimal:2',
         ];
     }
 

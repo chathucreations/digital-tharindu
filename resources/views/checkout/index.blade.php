@@ -44,7 +44,7 @@
                             <label class="mb-1.5 block text-sm font-semibold text-slate-700">Phone Number *</label>
                             <input type="text" name="phone" value="{{ old('phone', auth()->user()->phone) }}"
                                    placeholder="94712345678" required
-                                   class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                   class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                             <p class="mt-1 text-xs text-slate-400">Sri Lankan format: 947XXXXXXXX (e.g. 94712345678)</p>
                         </div>
                     </div>
@@ -57,11 +57,11 @@
                     <div class="mt-4 space-y-3">
                         @if ($onlineEnabled)
                             <label class="flex cursor-pointer items-start gap-4 rounded-2xl border-2 border-slate-200 p-4 transition"
-                                   :class="method === 'online_gateway' ? 'border-indigo-600 bg-indigo-50' : ''">
-                                <input type="radio" name="payment_method" value="online_gateway" x-model="method" class="mt-1 text-indigo-600 focus:ring-indigo-500" @checked(old('payment_method', 'online_gateway') === 'online_gateway')>
+                                   :class="method === 'online_gateway' ? 'border-[#1D4ED8] bg-blue-50' : ''">
+                                <input type="radio" name="payment_method" value="online_gateway" x-model="method" class="mt-1 text-[#1D4ED8] focus:ring-blue-500" @checked(old('payment_method', 'online_gateway') === 'online_gateway')>
                                 <span class="flex-1">
                                     <span class="flex items-center gap-2 font-bold text-slate-900">
-                                        <x-ui-icon name="credit-card" class="h-5 w-5 text-indigo-600" /> Online Payment Gateway
+                                        <x-ui-icon name="credit-card" class="h-5 w-5 text-[#1D4ED8]" /> Online Payment Gateway
                                     </span>
                                     <span class="mt-1 block text-sm text-slate-500">Pay securely by card via Marx IPG. Instant delivery on success.</span>
                                 </span>
@@ -73,11 +73,11 @@
                         @endif
 
                         <label class="flex cursor-pointer items-start gap-4 rounded-2xl border-2 border-slate-200 p-4 transition"
-                               :class="method === 'offline' ? 'border-indigo-600 bg-indigo-50' : ''">
-                            <input type="radio" name="payment_method" value="offline" x-model="method" class="mt-1 text-indigo-600 focus:ring-indigo-500" @checked(old('payment_method') === 'offline')>
+                               :class="method === 'offline' ? 'border-[#1D4ED8] bg-blue-50' : ''">
+                            <input type="radio" name="payment_method" value="offline" x-model="method" class="mt-1 text-[#1D4ED8] focus:ring-blue-500" @checked(old('payment_method') === 'offline')>
                             <span class="flex-1">
                                 <span class="flex items-center gap-2 font-bold text-slate-900">
-                                    <x-ui-icon name="bank" class="h-5 w-5 text-indigo-600" /> Bank Transfer (Offline)
+                                    <x-ui-icon name="bank" class="h-5 w-5 text-[#1D4ED8]" /> Bank Transfer (Offline)
                                 </span>
                                 <span class="mt-1 block text-sm text-slate-500">Deposit to our bank account and upload your receipt. We'll verify and deliver.</span>
                             </span>
@@ -116,7 +116,7 @@
                 </div>
 
                 <label class="flex items-start gap-3 text-sm text-slate-600">
-                    <input type="checkbox" name="terms" value="1" required class="mt-0.5 rounded text-indigo-600 focus:ring-indigo-500">
+                    <input type="checkbox" name="terms" value="1" required class="mt-0.5 rounded text-[#1D4ED8] focus:ring-blue-500">
                     <span>I agree to the terms of service and understand that digital products are non-refundable once delivered.</span>
                 </label>
             </div>
@@ -138,11 +138,11 @@
                     </ul>
                     <div class="mt-4 flex justify-between border-t border-slate-100 pt-4 text-base">
                         <span class="font-bold text-slate-900">Total</span>
-                        <span class="font-extrabold text-indigo-600">{{ money($subtotal) }}</span>
+                        <span class="font-extrabold text-[#1D4ED8]">{{ money($subtotal) }}</span>
                     </div>
 
                     <button type="submit"
-                            class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
+                            class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88]">
                         <x-ui-icon name="lock" class="h-4 w-4" />
                         <span x-text="method === 'offline' ? 'Place Order' : 'Pay Now'"></span>
                     </button>

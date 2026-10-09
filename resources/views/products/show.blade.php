@@ -9,154 +9,167 @@
 @section('content')
     @php
         $image = $product->image ? media_url($product->image) : null;
+        $gallery = $product->galleryImages();
         $variations = $product->variations->sortBy(fn ($v) => $v->billing_cycle === 'monthly' ? 0 : 1)->values();
     @endphp
 
-    <div class="mx-auto max-w-7xl px-4 py-10">
-        <nav class="text-sm text-slate-400">
-            <a href="{{ route('home') }}" class="hover:text-indigo-600">Home</a>
-            <span class="mx-1">/</span>
-            <a href="{{ route('products.index') }}" class="hover:text-indigo-600">Products</a>
+    <div style="max-width:1272px;width:95%;margin:0 auto;padding:26px 0 10px;">
+        <nav class="egx-breadcrumb">
+            <a href="{{ route('home') }}">Home</a>
+            <span>/</span>
+            <a href="{{ route('products.index') }}">Products</a>
             @if ($product->category)
-                <span class="mx-1">/</span>
-                <a href="{{ route('products.index', ['category' => $product->category->slug]) }}" class="hover:text-indigo-600">{{ $product->category->name }}</a>
+                <span>/</span>
+                <a href="{{ route('products.index', ['category' => $product->category->slug]) }}">{{ $product->category->name }}</a>
             @endif
         </nav>
+    </div>
 
-        <div class="mt-6 grid gap-10 lg:grid-cols-2">
-            <!-- Image -->
-            <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white" data-reveal="left">
-                <div class="aspect-[4/3] bg-gradient-to-br from-indigo-50 to-slate-100">
-                    @if ($image)
-                        <img src="{{ $image }}" alt="{{ $product->name }}" class="h-full w-full object-cover">
-                    @else
-                        <div class="flex h-full w-full items-center justify-center text-indigo-300">
-                            <x-ui-icon name="bag" class="h-20 w-20" />
-                        </div>
-                    @endif
+    <div class="products-container" style="margin-bottom:20px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:24px;align-items:start;">
+            {{-- Image gallery --}}
+            <div x-data="{ images: {{ Js::from($gallery) }}, current: 0 }"
+                 style="border:1.5px solid var(--border);border-radius:14px;padding:14px;background:#fff;">
+                <div class="egx-zoom" x-data="{ zx: 50, zy: 50 }"
+                     @mousemove="zx = (($event.offsetX / $event.currentTarget.offsetWidth) * 100); zy = (($event.offsetY / $event.currentTarget.offsetHeight) * 100)"
+                     @mouseleave="zx = 50; zy = 50">
+                    <template x-if="images.length > 0">
+                        <img :src="images[current]" :alt="'{{ e($product->name) }}'"
+                             class="egx-zoom-img"
+                             :style="'transform-origin: ' + zx + '% ' + zy + '%'">
+                    </template>
+                    <template x-if="images.length === 0">
+                        <span style="font-size:88px;opacity:.3;font-weight:700;">{{ strtoupper(substr($product->name, 0, 1)) }}</span>
+                    </template>
+                </div>
+
+                <div class="egx-thumbs" x-show="images.length > 1" x-cloak>
+                    <template x-for="(img, i) in images" :key="i">
+                        <button type="button" class="egx-thumb" :class="current === i ? 'is-active' : ''"
+                                @click="current = i" :aria-label="'Show image ' + (i + 1)">
+                            <img :src="img" :alt="'{{ e($product->name) }} — image ' + (i + 1)">
+                        </button>
+                    </template>
                 </div>
             </div>
 
-            <!-- Details -->
-            <div data-reveal="right">
-                <span class="text-sm font-bold uppercase tracking-wide text-indigo-600">{{ $product->category?->name }}</span>
-                <h1 class="mt-2 text-3xl font-extrabold text-slate-900">{{ $product->name }}</h1>
+            {{-- Details --}}
+            <div>
+                <div style="font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#6b7280;">{{ $product->category?->name }}</div>
+                <h1 style="margin-top:6px;font-size:clamp(24px,3vw,34px);font-weight:800;color:#1A1D23;line-height:1.2;">{{ $product->name }}</h1>
                 @if ($product->short_description)
-                    <p class="mt-3 text-slate-600">{{ $product->short_description }}</p>
+                    <p style="margin-top:10px;color:#2f2f2f;font-size:16px;line-height:1.7;">{{ $product->short_description }}</p>
                 @endif
 
-                <div class="mt-6 flex flex-wrap gap-3 text-sm">
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 font-semibold text-emerald-700">
-                        <x-ui-icon name="bolt" class="h-4 w-4" /> Instant delivery
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 font-semibold text-indigo-700">
-                        <x-ui-icon name="shield-check" class="h-4 w-4" /> Secure checkout
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 font-semibold text-amber-700">
-                        <x-ui-icon name="receipt" class="h-4 w-4" /> PDF invoice
-                    </span>
+                <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;">
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:#F0FDF4;color:#16A34A;border:1px solid #BBF7D0;font-weight:700;font-size:13px;padding:6px 12px;border-radius:99px;">⚡ Instant delivery</span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:#EEF2FF;color:#1D4ED8;border:1px solid #C7D2FE;font-weight:700;font-size:13px;padding:6px 12px;border-radius:99px;">🛡️ Secure checkout</span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A;font-weight:700;font-size:13px;padding:6px 12px;border-radius:99px;">🧾 PDF invoice</span>
                 </div>
 
                 <form x-data="{ selected: {{ $variations->first()?->id ?? 'null' }} }"
-                      method="POST" action="{{ route('cart.store') }}" class="mt-8">
+                      method="POST" action="{{ route('cart.store') }}" style="margin-top:26px;">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
 
-                    <h3 class="text-sm font-bold uppercase tracking-wide text-slate-500">Choose your plan</h3>
-
                     @if ($variations->isNotEmpty())
-                        <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                        <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#6b7280;">Choose your plan</div>
+                        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
                             @foreach ($variations as $variation)
-                                <label class="cursor-pointer">
+                                <label style="cursor:pointer;">
                                     <input type="radio" name="variation_id" value="{{ $variation->id }}"
-                                           class="peer sr-only" x-model.number="selected"
-                                           @checked($loop->first)>
-                                    <div class="rounded-2xl border-2 border-slate-200 p-4 transition peer-checked:border-indigo-600 peer-checked:bg-indigo-50 peer-checked:shadow-md">
-                                        <div class="flex items-center justify-between">
-                                            <span class="font-bold text-slate-900">{{ ucfirst($variation->billing_cycle) }}</span>
-                                            <span class="text-xs font-semibold text-slate-400">{{ $variation->billing_cycle === 'monthly' ? 'Billed monthly' : 'Billed annually' }}</span>
+                                           class="sr-only" x-model.number="selected" @checked($loop->first)>
+                                    <div class="egx-plan-card" :class="selected === {{ $variation->id }} ? 'is-selected' : ''">
+                                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                                            <span style="font-weight:800;color:#1A1D23;">{{ ucfirst($variation->billing_cycle) }}</span>
+                                            <span style="font-size:12px;font-weight:600;color:#9CA3AF;">{{ $variation->billing_cycle === 'monthly' ? 'Billed monthly' : 'Billed annually' }}</span>
                                         </div>
-                                        <div class="mt-2 text-2xl font-extrabold text-indigo-600">{{ money($variation->price) }}</div>
+                                        <div style="margin-top:6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+                                            @if ($variation->original_price && $variation->original_price > $variation->price)
+                                                <span style="font-size:15px;font-weight:600;color:#9CA3AF;text-decoration:line-through;">{{ money($variation->original_price) }}</span>
+                                                <span style="background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;font-size:11px;font-weight:800;padding:2px 6px;border-radius:6px;">-{{ round((1 - ((float) $variation->price / (float) $variation->original_price)) * 100) }}%</span>
+                                            @endif
+                                            <span style="font-size:24px;font-weight:900;color:#1D4ED8;">{{ money($variation->price) }}</span>
+                                        </div>
                                     </div>
                                 </label>
                             @endforeach
                         </div>
 
                         @auth
-                            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                                <button type="submit" formaction="{{ route('cart.store') }}"
-                                        class="flex flex-1 items-center justify-center gap-2 rounded-xl border border-indigo-600 bg-white px-6 py-3.5 text-base font-bold text-indigo-600 transition hover:bg-indigo-50">
-                                    <x-ui-icon name="cart" class="h-5 w-5" /> Add to Cart
+                            <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+                                <button type="submit" formaction="{{ route('cart.store') }}" class="egx-btn-outline" style="flex:1;min-width:180px;">
+                                    🛒 Add to Cart
                                 </button>
-                                <button type="submit" formaction="{{ route('cart.buy') }}"
-                                        class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
-                                    <x-ui-icon name="bolt" class="h-5 w-5" /> Buy Now
+                                <button type="submit" formaction="{{ route('cart.buy') }}" class="egx-btn" style="flex:1;min-width:180px;">
+                                    ⚡ Buy Now
                                 </button>
                             </div>
                         @else
-                            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                                <a href="{{ route('register', ['redirect' => url()->current()]) }}"
-                                   class="flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
-                                    <x-ui-icon name="bolt" class="h-5 w-5" /> Sign up &amp; Buy
+                            <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;">
+                                <a href="{{ route('register', ['redirect' => url()->current()]) }}" class="egx-btn" style="flex:1;min-width:180px;">
+                                    ⚡ Sign Up &amp; Buy
                                 </a>
-                                <a href="{{ route('login', ['redirect' => url()->current()]) }}"
-                                   class="flex flex-1 items-center justify-center gap-2 rounded-xl border border-indigo-600 bg-white px-6 py-3.5 text-base font-bold text-indigo-600 transition hover:bg-indigo-50">
-                                    <x-ui-icon name="lock" class="h-5 w-5" /> Login
+                                <a href="{{ route('login', ['redirect' => url()->current()]) }}" class="egx-btn-outline" style="flex:1;min-width:180px;">
+                                    🔒 Login
                                 </a>
                             </div>
-                            <p class="mt-2 text-xs text-slate-400">
-                                Sign up in seconds with Google — you'll return here to choose your plan and pay.
-                            </p>
+                            <p style="margin-top:10px;font-size:13px;color:#9CA3AF;">Sign up in seconds with Google — you'll return here to choose your plan and pay.</p>
                         @endauth
                     @else
-                        <p class="mt-3 rounded-xl bg-slate-100 p-4 text-sm text-slate-500">Pricing for this product is coming soon. Please contact us for details.</p>
+                        <p style="margin-top:14px;background:#EEF0F5;border-radius:9px;padding:14px 16px;color:#6b7280;font-size:14px;">Pricing for this product is coming soon. Please contact us for details.</p>
                     @endif
                 </form>
             </div>
         </div>
+    </div>
 
-        <!-- Description -->
-        <div class="mt-14 grid gap-8 lg:grid-cols-[1fr_320px]">
-            <div class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8">
-                <h2 class="text-xl font-extrabold text-slate-900">Product Description</h2>
-                <div class="prose prose-slate mt-4 max-w-none">
-                    {!! $product->description ?: '<p class="text-slate-500">No description provided.</p>' !!}
-                </div>
+    {{-- Description + sidebar --}}
+    <div style="max-width:1272px;width:95%;margin:0 auto 30px;display:grid;grid-template-columns:1fr 320px;gap:20px;">
+        <div class="products-container" style="padding:24px;">
+            <h2 style="font-size:20px;font-weight:800;color:#1A1D23;">Product Description</h2>
+            <div class="p-desc" style="margin-top:14px;color:#2f2f2f;font-size:15.5px;line-height:1.75;">
+                {!! $product->description ?: '<p style="color:#9CA3AF;">No description provided.</p>' !!}
             </div>
-
-            <aside class="space-y-4">
-                <div class="rounded-3xl border border-slate-200 bg-white p-6">
-                    <h3 class="font-bold text-slate-900">What you get</h3>
-                    <ul class="mt-4 space-y-3 text-sm text-slate-600">
-                        @foreach (['Digital delivery — no shipping', 'Access details in your dashboard', 'Professional PDF invoice', 'Email confirmation & receipt'] as $line)
-                            <li class="flex items-start gap-2">
-                                <x-ui-icon name="check-circle" class="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
-                                <span>{{ $line }}</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                @if (setting('whatsapp_number'))
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', setting('whatsapp_number')) }}"
-                       target="_blank" rel="noopener"
-                       class="flex items-center justify-center gap-2 rounded-3xl border border-emerald-200 bg-emerald-50 p-5 text-sm font-bold text-emerald-700 transition hover:bg-emerald-100">
-                        <x-ui-icon name="phone" class="h-4 w-4" /> Need help? Chat on WhatsApp
-                    </a>
-                @endif
-            </aside>
         </div>
 
-        <!-- Related -->
-        @if ($related->isNotEmpty())
-            <section class="mt-16">
-                <h2 class="mb-6 text-2xl font-extrabold text-slate-900">You may also like</h2>
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    @foreach ($related as $item)
-                        <x-product-card :product="$item" />
+        <aside style="display:flex;flex-direction:column;gap:14px;">
+            <div class="products-container" style="padding:20px;">
+                <h3 style="font-weight:800;font-size:17px;color:#1A1D23;">What you get</h3>
+                <ul style="margin-top:12px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#374151;list-style:none;padding:0;">
+                    @foreach (['Digital delivery — no shipping', 'Access details in your dashboard', 'Professional PDF invoice', 'Email confirmation & receipt'] as $line)
+                        <li style="display:flex;align-items:flex-start;gap:8px;">
+                            <span style="color:#16A34A;font-weight:800;">✔</span> <span>{{ $line }}</span>
+                        </li>
                     @endforeach
-                </div>
-            </section>
-        @endif
+                </ul>
+            </div>
+
+            @if (setting('whatsapp_number'))
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', setting('whatsapp_number')) }}"
+                   target="_blank" rel="noopener"
+                   style="display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid #BBF7D0;background:#F0FDF4;border-radius:10px;padding:16px;font-weight:700;font-size:15px;color:#15803d;">
+                    💬 Need help? Chat on WhatsApp
+                </a>
+            @endif
+        </aside>
     </div>
+
+    {{-- Related products --}}
+    @if ($related->isNotEmpty())
+        <div style="max-width:1272px;width:95%;margin:0 auto 50px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <h2 style="font-size:25px;font-weight:800;color:#1A1D23;">You may also like</h2>
+            </div>
+            <div class="products-container">
+                <div class="ms-row-container">
+                    <div class="ms-products-grid">
+                        @foreach ($related as $item)
+                            <x-product-card :product="$item" />
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection

@@ -16,7 +16,7 @@
                 <x-ui-icon name="cart" class="mx-auto h-14 w-14 text-slate-300" />
                 <h2 class="mt-4 text-xl font-bold text-slate-900">Your cart is empty</h2>
                 <p class="mt-1 text-slate-500">Browse our products and add something you love.</p>
-                <a href="{{ route('products.index') }}" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white hover:bg-indigo-700">
+                <a href="{{ route('products.index') }}" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3 text-sm font-bold text-white hover:bg-[#052f88]">
                     Browse Products <x-ui-icon name="arrow-right" class="h-4 w-4" />
                 </a>
             </div>
@@ -68,15 +68,15 @@
                             </div>
                             <div class="flex justify-between border-t border-slate-100 pt-3 text-base">
                                 <dt class="font-bold text-slate-900">Total</dt>
-                                <dd class="font-extrabold text-indigo-600">{{ money($subtotal) }}</dd>
+                                <dd class="font-extrabold text-[#1D4ED8]">{{ money($subtotal) }}</dd>
                             </div>
                         </dl>
 
                         <a href="{{ route('checkout.index') }}"
-                           class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
+                           class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88]">
                             <x-ui-icon name="lock" class="h-4 w-4" /> Proceed to Checkout
                         </a>
-                        <a href="{{ route('products.index') }}" class="mt-3 block text-center text-sm font-semibold text-slate-500 hover:text-indigo-600">
+                        <a href="{{ route('products.index') }}" class="mt-3 block text-center text-sm font-semibold text-slate-500 hover:text-[#1D4ED8]">
                             Continue shopping
                         </a>
 

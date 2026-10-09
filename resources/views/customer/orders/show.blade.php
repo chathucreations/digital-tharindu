@@ -5,14 +5,14 @@
 @section('customer-content')
     <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-            <a href="{{ route('customer.orders.index') }}" class="text-sm font-semibold text-slate-400 hover:text-indigo-600">← Back to orders</a>
+            <a href="{{ route('customer.orders.index') }}" class="text-sm font-semibold text-slate-400 hover:text-[#1D4ED8]">← Back to orders</a>
             <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Order {{ $order->order_number }}</h1>
             <p class="mt-1 text-slate-500">Placed on {{ $order->created_at->format('M d, Y \a\t H:i') }}</p>
         </div>
         <div class="flex flex-wrap gap-2">
             @if ($order->invoice)
                 <a href="{{ route('customer.invoices.download', $order->invoice) }}"
-                   class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-indigo-700">
+                   class="inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#052f88]">
                     <x-ui-icon name="download" class="h-4 w-4" /> Invoice PDF
                 </a>
             @endif
@@ -45,7 +45,7 @@
         </div>
         <div class="rounded-2xl border border-slate-200 bg-white p-5">
             <div class="text-xs font-bold uppercase tracking-wide text-slate-400">Total</div>
-            <div class="mt-2 text-2xl font-extrabold text-indigo-600">{{ money($order->total_amount) }}</div>
+            <div class="mt-2 text-2xl font-extrabold text-[#1D4ED8]">{{ money($order->total_amount) }}</div>
         </div>
     </div>
 
@@ -103,18 +103,18 @@
                     <div>
                         <label class="mb-1.5 block text-sm font-semibold text-slate-700">Upload Payment Receipt *</label>
                         <input type="file" name="offline_receipt" accept=".jpg,.jpeg,.png,.pdf"
-                               class="w-full rounded-xl border border-slate-300 p-2 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white">
+                               class="w-full rounded-xl border border-slate-300 p-2 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-[#1D4ED8] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white">
                         <p class="mt-1 text-xs text-slate-400">JPG, PNG or PDF up to 5MB.</p>
                     </div>
 
                     <div>
                         <label class="mb-1.5 block text-sm font-semibold text-slate-700">Note / Reference</label>
                         <textarea name="offline_note" rows="3" placeholder="Bank reference, deposit date, etc."
-                                  class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('offline_note', $order->offline_note) }}</textarea>
+                                  class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">{{ old('offline_note', $order->offline_note) }}</textarea>
                     </div>
 
                     <button type="submit"
-                            class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-indigo-700">
+                            class="inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#052f88]">
                         <x-ui-icon name="download" class="h-4 w-4 rotate-180" /> Submit Payment Proof
                     </button>
                 </form>
@@ -141,7 +141,7 @@
                             <div class="whitespace-pre-line">{{ $item->product?->access_details ?: 'Access this product from your dashboard.' }}</div>
                             @if ($item->product?->file_path)
                                 <a href="{{ route('customer.products.download', $item) }}"
-                                   class="mt-3 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-bold text-white hover:bg-indigo-700">
+                                   class="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#1D4ED8] px-4 py-2 text-xs font-bold text-white hover:bg-[#052f88]">
                                     <x-ui-icon name="download" class="h-4 w-4" /> Download File
                                 </a>
                             @endif

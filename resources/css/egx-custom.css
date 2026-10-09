@@ -1,0 +1,568 @@
+/* ==========================================================================
+   Digital Store — custom additions built on the EGX.lk design system.
+   These only fill in elements unique to this storefront (flash messages,
+   back-to-top, footer logo, live-search cards) and align with the EGX
+   palette (navy #052f88, blue #1D4ED8, ink #1A1D23, fire #F97316).
+   ========================================================================== */
+
+body.egxh-page {
+    background: #fff;
+}
+
+/* Logo text (used when no logo image is uploaded) */
+.egxh-logo-text {
+    font-size: 21.5px;
+    font-weight: 700;
+    color: var(--egxh-ink, #1a1d23);
+}
+
+/* Account / cart actions in the main header row */
+.egxh-acc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px;
+    color: var(--egxh-ink, #1a1d23);
+}
+
+.egxh-acc-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.egxh-acc-small {
+    font-size: 12.5px;
+    color: var(--egxh-muted, #6b7280);
+    font-weight: 400;
+}
+
+.egxh-cart-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--egxh-blue, #1d4ed8);
+}
+
+/* Logout button inside the mobile drawer */
+.egxh-dd-link-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--egxh-ink, #1a1d23);
+    cursor: pointer;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.egxh-dd-link-btn:hover {
+    color: var(--egxh-blue, #1d4ed8);
+}
+
+/* Flash / session messages */
+.egx-flash {
+    position: relative;
+    margin: 14px auto 0;
+    width: min(1272px, 95%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.egx-flash-ok {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.egx-flash-err {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.egx-flash button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+}
+
+/* Back-to-top button */
+.egx-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 96px;
+    z-index: 600;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: var(--egxh-navy, #052f88);
+    color: #fff;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+}
+
+.egx-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.egx-to-top:hover {
+    transform: translateY(-2px);
+}
+
+/* Footer logo */
+.footer-logo {
+    height: 46px;
+    width: auto;
+}
+
+.footer-logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text, #1a1d23);
+}
+
+/* Live-search dropdown cards */
+.live-search-results {
+    display: block;
+}
+
+.live-search-results[hidden] {
+    display: none;
+}
+
+.egxh .live-search-results .ls-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    border-bottom: 1px solid #f1f5f9;
+    margin: 0;
+    padding: 10px 14px;
+}
+
+.egxh .live-search-results .ls-thumb {
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    flex-shrink: 0;
+}
+
+.egxh .live-search-results .ls-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.egxh .live-search-results .ls-all {
+    display: block;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--egxh-blue, #1d4ed8);
+    border-top: 1px solid #f1f5f9;
+}
+
+.egxh .live-search-results .ls-name {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--egxh-ink, #1a1d23);
+}
+
+.egxh .live-search-results .ls-cat {
+    font-size: 12px;
+    color: var(--egxh-muted, #6b7280);
+}
+
+/* Section header row inside .products-container (h2 + "View All") */
+.egx-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 18px 24px 6px;
+}
+
+.egx-section-head h2 {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--accent, #111827);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.egx-section-head a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2, #1d4ed8);
+    border: 1.5px solid var(--border, #e2e5ec);
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.15s;
+}
+
+.egx-section-head a:hover {
+    background: var(--accent2, #1d4ed8);
+    border-color: var(--accent2, #1d4ed8);
+    color: #fff;
+}
+
+/* Promo banner grid */
+.egx-promo-wrap {
+    padding-bottom: 24px;
+}
+
+.egx-promo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 8px 24px 24px;
+}
+
+@media (max-width: 960px) {
+    .egx-promo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 8px 16px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .egx-promo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.promo-card {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 240px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+.egx-promo-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px;
+    color: #fff;
+}
+
+.egx-promo-title {
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    max-width: 85%;
+}
+
+.egx-promo-sub {
+    font-size: 14px;
+    opacity: 0.92;
+    margin-bottom: 14px;
+    max-width: 85%;
+}
+
+.egx-promo-btn {
+    align-self: flex-start;
+    background: #fff;
+    color: var(--accent2, #1d4ed8);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* Reusable controls in the EGX palette */
+.egx-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--accent, #111827);
+    color: #fff;
+    border: 1.5px solid var(--accent, #111827);
+    padding: 12px 26px;
+    border-radius: 9px;
+    font-size: 15.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.egx-btn:hover {
+    background: var(--accent2, #1d4ed8);
+    border-color: var(--accent2, #1d4ed8);
+    transform: translateY(-1px);
+}
+
+.egx-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--accent, #111827);
+    border: 1.5px solid var(--border, #e2e5ec);
+    padding: 12px 26px;
+    border-radius: 9px;
+    font-size: 15.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.egx-btn-outline:hover {
+    border-color: var(--accent2, #1d4ed8);
+    color: var(--accent2, #1d4ed8);
+}
+
+.egx-input {
+    width: 100%;
+    border: 1.5px solid var(--border, #e2e5ec);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    background: #fff;
+    color: var(--text, #1a1d23);
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+}
+
+.egx-input:focus {
+    border-color: var(--accent2, #1d4ed8);
+}
+
+.egx-input-select {
+    width: 100%;
+    border: 1.5px solid var(--border, #e2e5ec);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    background: #fff;
+    color: var(--text, #1a1d23);
+    outline: none;
+}
+
+.egx-label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text, #1a1d23);
+    margin-bottom: 6px;
+}
+
+/* Simple page hero used on inner pages */
+.egx-hero {
+    background: linear-gradient(135deg, #052f88 0%, #1d4ed8 100%);
+    color: #fff;
+}
+
+.egx-hero h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.egx-hero p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Breadcrumbs */
+.egx-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #9ca3af;
+    flex-wrap: wrap;
+}
+
+.egx-breadcrumb a {
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+.egx-breadcrumb a:hover {
+    color: #052f88;
+}
+
+/* Plan selector card (product page) */
+.egx-plan-card {
+    border: 2px solid var(--border, #e2e5ec);
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+    transition: all 0.15s;
+    cursor: pointer;
+}
+
+.egx-plan-card.is-selected {
+    border-color: var(--accent2, #1d4ed8);
+    background: #eef2ff;
+    box-shadow: 0 2px 10px rgba(29, 78, 216, 0.15);
+}
+
+/* Product page responsive stacking */
+@media (max-width: 960px) {
+    .products-container > div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    div[style*="grid-template-columns:1fr 320px"],
+    div[style*="grid-template-columns:360px 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+    }
+}
+
+/* Slimmer home banner slider */
+.egxb-slide {
+    overflow: hidden;
+}
+
+.egxb-slide img {
+    max-height: 420px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 768px) {
+    .egxb-slide img {
+        max-height: 220px;
+    }
+}
+
+@media (max-width: 480px) {
+    .egxb-slide img {
+        max-height: 180px;
+    }
+}
+
+/* Product image gallery with cursor-follow hover zoom */
+.egx-zoom {
+    position: relative;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 10px;
+    cursor: zoom-in;
+}
+
+.egx-zoom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+    will-change: transform;
+}
+
+.egx-zoom:hover .egx-zoom-img {
+    transform: scale(1.9);
+}
+
+.egx-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.egx-thumb {
+    width: 68px;
+    height: 68px;
+    border: 2px solid var(--border, #e2e5ec);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+    cursor: pointer;
+    background: #f8fafc;
+    transition: border-color 0.15s;
+    flex-shrink: 0;
+}
+
+.egx-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.egx-thumb.is-active {
+    border-color: var(--accent2, #1d4ed8);
+}
+
+/* Struck-through (compare-at) price + discount badge on cards */
+.egx-price-original {
+    color: #888;
+    text-decoration: line-through;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.egx-discount {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .egx-price-original {
+        font-size: 10.5px;
+    }
+
+    .egx-discount {
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+}

@@ -16,7 +16,7 @@
                 <x-ui-icon name="receipt" class="mx-auto h-12 w-12 text-slate-300" />
                 <h2 class="mt-3 font-bold text-slate-900">No orders yet</h2>
                 <p class="mt-1 text-sm text-slate-500">Your orders will appear here once you make a purchase.</p>
-                <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-indigo-700">Browse Products</a>
+                <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#052f88]">Browse Products</a>
             </div>
         @else
             <div class="overflow-x-auto">
@@ -48,7 +48,7 @@
                                     <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">{{ ucfirst($order->order_status) }}</span>
                                 </td>
                                 <td class="px-5 py-3 text-right">
-                                    <a href="{{ route('customer.orders.show', $order) }}" class="font-semibold text-indigo-600 hover:text-indigo-700">View</a>
+                                    <a href="{{ route('customer.orders.show', $order) }}" class="font-semibold text-[#1D4ED8] hover:text-[#052f88]">View</a>
                                 </td>
                             </tr>
                         @endforeach

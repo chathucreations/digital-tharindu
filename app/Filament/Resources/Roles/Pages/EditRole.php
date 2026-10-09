@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Filament\Resources\Roles\Pages;
+
+use App\Filament\Resources\Roles\RoleResource;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditRole extends EditRecord
+{
+    protected static string $resource = RoleResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            DeleteAction::make(),
+        ];
+    }
+
+    protected function afterSave(): void
+    {
+        $this->record->permissions->loadMissing('roles');
+
+        activity('role')
+            ->causedBy(auth()->user())
+            ->performedOn($this->record)
+            ->withProperties(['permissions' => $this->record->permissions->pluck('name')->all()])
+            ->log('Role updated');
+    }
+}

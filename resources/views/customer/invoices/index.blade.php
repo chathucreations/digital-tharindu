@@ -12,7 +12,7 @@
     @if (setting('bank_name') || setting('bank_account_number'))
         <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-6" data-reveal>
             <h2 class="flex items-center gap-2 text-base font-extrabold text-slate-900">
-                <x-ui-icon name="bank" class="h-5 w-5 text-indigo-600" /> Bank Transfer Details
+                <x-ui-icon name="bank" class="h-5 w-5 text-[#1D4ED8]" /> Bank Transfer Details
             </h2>
             <p class="mt-1 text-sm text-slate-500">Use these details for offline (bank transfer) payments.</p>
 
@@ -46,7 +46,7 @@
                 <x-ui-icon name="receipt" class="mx-auto h-12 w-12 text-slate-300" />
                 <h2 class="mt-3 font-bold text-slate-900">No invoices yet</h2>
                 <p class="mt-1 text-sm text-slate-500">Invoices appear here once your payment is confirmed.</p>
-                <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-indigo-700">Browse Products</a>
+                <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#052f88]">Browse Products</a>
             </div>
         @else
             <div class="overflow-x-auto">
@@ -65,7 +65,7 @@
                             <tr class="hover:bg-slate-50">
                                 <td class="px-5 py-3 font-semibold text-slate-800">{{ $invoice->invoice_number }}</td>
                                 <td class="px-5 py-3">
-                                    <a href="{{ route('customer.orders.show', $invoice->order) }}" class="text-indigo-600 hover:text-indigo-700">
+                                    <a href="{{ route('customer.orders.show', $invoice->order) }}" class="text-[#1D4ED8] hover:text-[#052f88]">
                                         {{ $invoice->order->order_number }}
                                     </a>
                                 </td>
@@ -73,7 +73,7 @@
                                 <td class="px-5 py-3 font-semibold">{{ money($invoice->order->total_amount) }}</td>
                                 <td class="px-5 py-3 text-right">
                                     <a href="{{ route('customer.invoices.download', $invoice) }}"
-                                       class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700">
+                                       class="inline-flex items-center gap-1.5 rounded-lg bg-[#1D4ED8] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#052f88]">
                                         <x-ui-icon name="download" class="h-3.5 w-3.5" /> PDF
                                     </a>
                                 </td>

@@ -10,7 +10,7 @@
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
         @foreach ([
-            ['label' => 'Total Orders', 'value' => $stats['orders'], 'icon' => 'receipt', 'class' => 'bg-indigo-50 text-indigo-600'],
+            ['label' => 'Total Orders', 'value' => $stats['orders'], 'icon' => 'receipt', 'class' => 'bg-blue-50 text-[#1D4ED8]'],
             ['label' => 'Completed', 'value' => $stats['completed'], 'icon' => 'check-circle', 'class' => 'bg-emerald-50 text-emerald-600'],
             ['label' => 'Pending', 'value' => $stats['pending'], 'icon' => 'clock', 'class' => 'bg-amber-50 text-amber-600'],
             ['label' => 'Total Spent', 'value' => money($stats['spent']), 'icon' => 'bank', 'class' => 'bg-violet-50 text-violet-600'],
@@ -28,13 +28,13 @@
     <div class="mt-8 rounded-2xl border border-slate-200 bg-white" data-reveal>
         <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
             <h2 class="font-extrabold text-slate-900">Recent Orders</h2>
-            <a href="{{ route('customer.orders.index') }}" class="text-sm font-bold text-indigo-600 hover:text-indigo-700">View all</a>
+            <a href="{{ route('customer.orders.index') }}" class="text-sm font-bold text-[#1D4ED8] hover:text-[#052f88]">View all</a>
         </div>
 
         @if ($orders->isEmpty())
             <div class="p-10 text-center text-sm text-slate-500">
                 You haven't placed any orders yet.
-                <a href="{{ route('products.index') }}" class="font-semibold text-indigo-600">Browse products →</a>
+                <a href="{{ route('products.index') }}" class="font-semibold text-[#1D4ED8]">Browse products →</a>
             </div>
         @else
             <div class="overflow-x-auto">
@@ -62,7 +62,7 @@
                                     <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">{{ ucfirst($order->order_status) }}</span>
                                 </td>
                                 <td class="px-5 py-3 text-right">
-                                    <a href="{{ route('customer.orders.show', $order) }}" class="font-semibold text-indigo-600 hover:text-indigo-700">View</a>
+                                    <a href="{{ route('customer.orders.show', $order) }}" class="font-semibold text-[#1D4ED8] hover:text-[#052f88]">View</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -46,12 +46,12 @@
             </ul>
             <div class="mt-4 flex justify-between border-t border-slate-100 pt-4 text-base">
                 <span class="font-bold text-slate-900">Total</span>
-                <span class="font-extrabold text-indigo-600">{{ money($order->total_amount) }}</span>
+                <span class="font-extrabold text-[#1D4ED8]">{{ money($order->total_amount) }}</span>
             </div>
         </div>
 
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="{{ route('customer.orders.show', $order) }}" class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white hover:bg-indigo-700">
+            <a href="{{ route('customer.orders.show', $order) }}" class="inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3 text-sm font-bold text-white hover:bg-[#052f88]">
                 View Order <x-ui-icon name="arrow-right" class="h-4 w-4" />
             </a>
             <a href="{{ route('products.index') }}" class="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3 text-sm font-bold text-slate-700 hover:bg-slate-50">

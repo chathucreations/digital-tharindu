@@ -25,7 +25,7 @@
                 </div>
                 <div class="flex justify-between py-1">
                     <span class="text-slate-500">Amount</span>
-                    <span class="font-extrabold text-indigo-600">{{ money($order->total_amount) }}</span>
+                    <span class="font-extrabold text-[#1D4ED8]">{{ money($order->total_amount) }}</span>
                 </div>
             </div>
 

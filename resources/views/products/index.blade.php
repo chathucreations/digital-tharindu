@@ -6,83 +6,59 @@
 @section('og_image', $selected?->og_image ? media_url($selected->og_image) : null)
 
 @section('content')
-    <section class="border-b border-slate-200 bg-white">
-        <div class="mx-auto max-w-7xl px-4 py-12">
-            <nav class="text-sm text-slate-400">
-                <a href="{{ route('home') }}" class="hover:text-indigo-600">Home</a>
-                <span class="mx-1">/</span>
-                <span class="text-slate-600">Products</span>
+    <div class="egx-hero">
+        <div style="max-width:1272px;width:95%;margin:0 auto;padding:40px 0 34px;">
+            <nav style="font-size:14px;color:rgba(255,255,255,.75)">
+                <a href="{{ route('home') }}" style="color:#fff;font-weight:600">Home</a>
+                <span style="margin:0 6px">/</span>
+                <span>Products</span>
             </nav>
-            <h1 class="mt-2 text-3xl font-extrabold text-slate-900">
-                {{ $selected ? $selected->name : 'All Products' }}
-            </h1>
-            <p class="mt-1 text-slate-500">
-                {{ $selected?->description ?: 'Browse our full catalogue of premium digital products.' }}
+            <h1 style="margin-top:10px;">{{ $selected ? $selected->name : 'All Products' }}</h1>
+            <p style="margin-top:6px;max-width:680px;font-size:16px;">
+                {{ $selected?->description ?: 'Browse our full catalogue of premium digital products — secure payment, instant delivery.' }}
             </p>
         </div>
-    </section>
+    </div>
 
-    <div class="mx-auto max-w-7xl px-4 py-10">
-        <div class="grid gap-8 lg:grid-cols-[260px_1fr]">
-            <!-- Sidebar filters -->
-            <aside class="space-y-6" data-reveal="left">
-                <form method="GET" action="{{ route('products.index') }}" class="rounded-2xl border border-slate-200 bg-white p-4">
-                    <label class="mb-2 block text-sm font-bold text-slate-900">Search</label>
-                    <div class="flex gap-2">
-                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Search products"
-                               class="w-full rounded-lg border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
-                        <button class="rounded-lg bg-indigo-600 px-3 text-white hover:bg-indigo-700" aria-label="Search">
-                            <x-ui-icon name="sparkles" class="h-4 w-4" />
-                        </button>
-                    </div>
-                </form>
-
-                <div class="rounded-2xl border border-slate-200 bg-white p-4">
-                    <h3 class="mb-3 text-sm font-bold text-slate-900">Categories</h3>
-                    <ul class="space-y-1">
-                        <li>
-                            <a href="{{ route('products.index') }}"
-                               class="block rounded-lg px-3 py-2 text-sm font-medium {{ ! $selected ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }}">
-                                All Categories
-                            </a>
-                        </li>
+    <div class="products-section" style="padding-top:22px;">
+        <div class="products-container">
+            {{-- Filter bar --}}
+            <div class="filter-bar">
+                <div class="filter-bar-inner">
+                    <div class="filter-tabs">
+                        <a class="filter-tab {{ ! $selected ? 'active' : '' }}" href="{{ route('products.index') }}">All</a>
                         @foreach ($categories as $category)
-                            <li>
-                                <a href="{{ route('products.index', ['category' => $category->slug]) }}"
-                                   class="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium {{ $selected && $selected->id === $category->id ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50' }}">
-                                    <span>{{ $category->name }}</span>
-                                    <span class="text-xs text-slate-400">{{ $category->products_count ?? '' }}</span>
-                                </a>
-                            </li>
+                            <a class="filter-tab {{ $selected && $selected->id === $category->id ? 'active' : '' }}"
+                               href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
                         @endforeach
-                    </ul>
+                    </div>
+                    <span class="results-count">Showing {{ $products->count() }} of {{ $products->total() }} products</span>
                 </div>
-            </aside>
+            </div>
 
-            <!-- Grid -->
-            <div>
-                <div class="mb-4 flex items-center justify-between">
-                    <p class="text-sm text-slate-500">Showing {{ $products->count() }} of {{ $products->total() }} products</p>
-                </div>
-
+            {{-- Products grid --}}
+            <div class="products-grid-wrap">
                 @if ($products->isEmpty())
-                    <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-16 text-center">
-                        <x-ui-icon name="bag" class="mx-auto h-12 w-12 text-slate-300" />
-                        <h3 class="mt-3 text-lg font-bold text-slate-900">No products found</h3>
-                        <p class="mt-1 text-sm text-slate-500">Try a different category or search term.</p>
+                    <div style="text-align:center;padding:60px 20px;">
+                        <div style="font-size:52px;opacity:.3">🛍️</div>
+                        <h3 style="margin-top:10px;font-size:20px;font-weight:800;color:#1A1D23">No products found</h3>
+                        <p style="margin-top:4px;color:#6b7280">Try a different category or search term.</p>
+                        <a href="{{ route('products.index') }}" class="egx-btn" style="margin-top:20px;">View All Products</a>
                     </div>
                 @else
-                    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                    <div class="ms-products-grid">
                         @foreach ($products as $product)
                             <x-product-card :product="$product" />
                         @endforeach
                     </div>
-
-                    <div class="mt-8">
-                        {{ $products->links() }}
-                    </div>
                 @endif
             </div>
         </div>
+
+        @if ($products->hasPages())
+            <div style="max-width:1272px;width:95%;margin:26px auto 0;display:flex;justify-content:center;">
+                {{ $products->links() }}
+            </div>
+        @endif
     </div>
 @endsection

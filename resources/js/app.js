@@ -1,8 +1,22 @@
 import Alpine from 'alpinejs';
+import { initEgxMenu, initEgxLiveSearch, initEgxToTop } from './egx.js';
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+function initEgx() {
+    initEgxMenu();
+    initEgxLiveSearch('#searchInput', '#liveSearchResults');
+    initEgxLiveSearch('#mobileSearchInput', '#mobileLiveSearchResults');
+    initEgxToTop();
+}
+
+if (document.readyState !== 'loading') {
+    initEgx();
+} else {
+    document.addEventListener('DOMContentLoaded', initEgx);
+}
 
 /**
  * Reveal-on-scroll: adds the `is-revealed` class to [data-reveal] elements

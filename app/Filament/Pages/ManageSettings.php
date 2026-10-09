@@ -34,6 +34,11 @@ class ManageSettings extends Page
     /** @var array<string, mixed>|null */
     public ?array $data = [];
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()?->can('settings.manage') ?? false;
+    }
+
     public function mount(): void
     {
         $settings = Settings::all();

@@ -10,7 +10,7 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::query()->updateOrCreate(
+        $admin = User::query()->updateOrCreate(
             ['email' => 'admin@digitalstore.test'],
             [
                 'name' => 'Super Admin',
@@ -20,8 +20,9 @@ class AdminUserSeeder extends Seeder
                 'password' => Hash::make('password'),
             ],
         );
+        $admin->assignRole('super-admin');
 
-        User::query()->updateOrCreate(
+        $customer = User::query()->updateOrCreate(
             ['email' => 'customer@digitalstore.test'],
             [
                 'name' => 'Demo Customer',
@@ -31,5 +32,6 @@ class AdminUserSeeder extends Seeder
                 'password' => Hash::make('password'),
             ],
         );
+        $customer->assignRole('customer');
     }
 }

@@ -21,7 +21,7 @@
             <label for="name" class="mb-1.5 block text-sm font-semibold text-slate-700">Full name</label>
             <input id="name" name="name" type="text" value="{{ old('name') }}" required autofocus autocomplete="name"
                    placeholder="Your name"
-                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             @error('name')
                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
             @enderror
@@ -31,7 +31,7 @@
             <label for="email" class="mb-1.5 block text-sm font-semibold text-slate-700">Email address</label>
             <input id="email" name="email" type="email" value="{{ old('email') }}" required autocomplete="username"
                    placeholder="you@example.com"
-                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             @error('email')
                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
             @enderror
@@ -41,7 +41,7 @@
             <label for="phone" class="mb-1.5 block text-sm font-semibold text-slate-700">Phone <span class="font-normal text-slate-400">(optional)</span></label>
             <input id="phone" name="phone" type="text" value="{{ old('phone') }}" autocomplete="tel"
                    placeholder="94712345678"
-                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             <p class="mt-1 text-xs text-slate-400">Sri Lankan format: 947XXXXXXXX</p>
             @error('phone')
                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
@@ -53,7 +53,7 @@
                 <label for="password" class="mb-1.5 block text-sm font-semibold text-slate-700">Password</label>
                 <input id="password" name="password" type="password" required autocomplete="new-password"
                        placeholder="••••••••"
-                       class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('password')
                     <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
                 @enderror
@@ -62,7 +62,7 @@
                 <label for="password_confirmation" class="mb-1.5 block text-sm font-semibold text-slate-700">Confirm</label>
                 <input id="password_confirmation" name="password_confirmation" type="password" required autocomplete="new-password"
                        placeholder="••••••••"
-                       class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
         </div>
 
@@ -76,7 +76,7 @@
         @endif
 
         <button type="submit"
-                class="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             <x-ui-icon name="bolt" class="h-4 w-4" /> Create Account
         </button>
     </form>
@@ -102,6 +102,6 @@
     <p class="mt-7 text-center text-sm text-slate-500">
         Already have an account?
         <a href="{{ route('login', request()->filled('redirect') ? ['redirect' => request('redirect')] : []) }}"
-           class="font-bold text-indigo-600 hover:text-indigo-700">Sign in</a>
+           class="font-bold text-[#1D4ED8] hover:text-[#052f88]">Sign in</a>
     </p>
 </x-guest-layout>

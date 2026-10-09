@@ -27,6 +27,7 @@ class Product extends Model
         'short_description',
         'description',
         'image',
+        'images',
         'is_digital',
         'is_active',
         'is_featured',
@@ -44,6 +45,7 @@ class Product extends Model
             'is_digital' => 'boolean',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'images' => 'array',
         ];
     }
 
@@ -83,6 +85,54 @@ class Product extends Model
     public function hasCycle(string $cycle): bool
     {
         return $this->variations->contains('billing_cycle', $cycle);
+    }
+
+    /**
+     * The storefront image gallery: the main image first, followed by the
+     * optional gallery images (capped at three for the gallery UI).
+     *
+     * @return array<int, string> absolute URLs ready for <img src>
+     */
+    public function galleryImages(): array
+    {
+        $paths = [];
+
+        if (filled($this->image)) {
+            $paths[] = $this->image;
+        }
+
+        if (is_array($this->images)) {
+            foreach ($this->images as $path) {
+                if (filled($path) && ! in_array($path, $paths, true)) {
+                    $paths[] = $path;
+                }
+            }
+        }
+
+        return array_map(static fn (string $path) => media_url($path), array_slice($paths, 0, 3));
+    }
+
+    /**
+     * The lowest variation price, optionally with its original (struck) price.
+     *
+     * @return array{price: ?float, original_price: ?float, discount_percent: ?int}
+     */
+    public function priceInfo(): array
+    {
+        $variation = $this->variations->sortBy(fn (ProductVariation $v) => (float) $v->price)->first();
+
+        $price = $variation?->price !== null ? (float) $variation->price : null;
+        $original = $variation?->original_price !== null ? (float) $variation->original_price : null;
+
+        $discount = ($price !== null && $original !== null && $original > $price)
+            ? (int) round((1 - ($price / $original)) * 100)
+            : null;
+
+        return [
+            'price' => $price,
+            'original_price' => $original,
+            'discount_percent' => $discount,
+        ];
     }
 
     /**

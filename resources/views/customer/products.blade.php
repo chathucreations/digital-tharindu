@@ -13,7 +13,7 @@
             <x-ui-icon name="bag" class="mx-auto h-12 w-12 text-slate-300" />
             <h2 class="mt-3 font-bold text-slate-900">No products yet</h2>
             <p class="mt-1 text-sm text-slate-500">Products you purchase will be available here.</p>
-            <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-indigo-700">Browse Products</a>
+            <a href="{{ route('products.index') }}" class="mt-5 inline-flex rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#052f88]">Browse Products</a>
         </div>
     @else
         <div class="grid gap-4 sm:grid-cols-2">
@@ -44,7 +44,7 @@
                     <div class="mt-4 flex gap-2">
                         @if ($item->product?->file_path)
                             <a href="{{ route('customer.products.download', $item) }}"
-                               class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-indigo-700">
+                               class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#052f88]">
                                 <x-ui-icon name="download" class="h-4 w-4" /> Download
                             </a>
                         @endif

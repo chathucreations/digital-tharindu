@@ -26,7 +26,7 @@
             <div>
                 <label for="name" class="mb-1.5 block text-sm font-semibold text-slate-700">Name</label>
                 <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" required autofocus autocomplete="name"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('name')
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                 @enderror
@@ -35,7 +35,7 @@
             <div>
                 <label for="email" class="mb-1.5 block text-sm font-semibold text-slate-700">Email</label>
                 <input id="email" name="email" type="email" value="{{ old('email', $user->email) }}" required autocomplete="username"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 @error('email')
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                 @enderror
@@ -44,7 +44,7 @@
             <div>
                 <label for="phone" class="mb-1.5 block text-sm font-semibold text-slate-700">Phone Number</label>
                 <input id="phone" name="phone" type="text" value="{{ old('phone', $user->phone) }}" placeholder="94712345678" autocomplete="tel"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 <p class="mt-1 text-xs text-slate-400">Sri Lankan format: 947XXXXXXXX (e.g. 94712345678)</p>
                 @error('phone')
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
@@ -53,7 +53,7 @@
 
             <div class="pt-1">
                 <button type="submit"
-                        class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
+                        class="inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88]">
                     <x-ui-icon name="check-circle" class="h-4 w-4" /> Save
                 </button>
             </div>
@@ -72,7 +72,7 @@
             <div>
                 <label for="update_password_current_password" class="mb-1.5 block text-sm font-semibold text-slate-700">Current Password</label>
                 <input id="update_password_current_password" name="current_password" type="password" autocomplete="current-password"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 @foreach ($errors->updatePassword->get('current_password') as $message)
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                 @endforeach
@@ -81,7 +81,7 @@
             <div>
                 <label for="update_password_password" class="mb-1.5 block text-sm font-semibold text-slate-700">New Password</label>
                 <input id="update_password_password" name="password" type="password" autocomplete="new-password"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 @foreach ($errors->updatePassword->get('password') as $message)
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                 @endforeach
@@ -90,7 +90,7 @@
             <div>
                 <label for="update_password_password_confirmation" class="mb-1.5 block text-sm font-semibold text-slate-700">Confirm Password</label>
                 <input id="update_password_password_confirmation" name="password_confirmation" type="password" autocomplete="new-password"
-                       class="w-full rounded-xl border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                       class="w-full rounded-xl border-slate-300 text-sm focus:border-blue-500 focus:ring-blue-500">
                 @foreach ($errors->updatePassword->get('password_confirmation') as $message)
                     <p class="mt-1 text-sm text-rose-600">{{ $message }}</p>
                 @endforeach
@@ -98,7 +98,7 @@
 
             <div class="flex items-center gap-3 pt-1">
                 <button type="submit"
-                        class="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700">
+                        class="inline-flex items-center gap-2 rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88]">
                     <x-ui-icon name="lock" class="h-4 w-4" /> Update Password
                 </button>
 

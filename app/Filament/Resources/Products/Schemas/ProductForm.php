@@ -42,6 +42,14 @@ class ProductForm
                             ->image()
                             ->imageEditor()
                             ->directory('products'),
+                        FileUpload::make('images')
+                            ->label('Gallery images')
+                            ->image()
+                            ->imageEditor()
+                            ->multiple()
+                            ->directory('products')
+                            ->maxFiles(3)
+                            ->helperText('Optional — up to 3 images. They appear in a gallery on the product page.'),
                         TextInput::make('file_path')
                             ->label('Digital file path')
                             ->helperText('Optional path on the public disk, e.g. downloads/product.zip'),
@@ -105,8 +113,14 @@ class ProductForm
                                     ->prefix('Rs.')
                                     ->required()
                                     ->minValue(0),
+                                TextInput::make('original_price')
+                                    ->label('Original price (strike-through)')
+                                    ->numeric()
+                                    ->prefix('Rs.')
+                                    ->minValue(0)
+                                    ->placeholder('Optional — shows a cut price + discount %'),
                             ])
-                            ->columns(2)
+                            ->columns(3)
                             ->defaultItems(1)
                             ->addActionLabel('Add billing variation')
                             ->reorderable(false)

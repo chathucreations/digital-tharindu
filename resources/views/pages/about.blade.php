@@ -5,81 +5,80 @@
 @section('canonical', route('about'))
 
 @section('content')
-    <section class="relative overflow-hidden bg-slate-900">
-        <div class="absolute inset-0 bg-gradient-to-r from-indigo-700 via-indigo-600 to-violet-600 opacity-90"></div>
-        <div class="relative mx-auto max-w-7xl px-4 py-20 text-center">
-            <h1 class="text-4xl font-extrabold text-white md:text-5xl">About {{ setting('site_name', config('app.name')) }}</h1>
-            <p class="mx-auto mt-4 max-w-2xl text-indigo-100">
-                {{ setting('tagline', 'Delivering premium digital products to customers across the globe.') }}
-            </p>
+    <div class="egx-hero">
+        <div style="max-width:1272px;width:95%;margin:0 auto;padding:44px 0 38px;">
+            <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:99px;font-size:13px;font-weight:600;padding:5px 13px;">Our Story</span>
+            <h1 style="margin-top:14px;">About {{ setting('site_name', config('app.name')) }}</h1>
+            <p style="margin-top:8px;max-width:640px;font-size:16.5px;">{{ setting('tagline', 'Delivering premium digital products to customers across the globe.') }}</p>
         </div>
-    </section>
+    </div>
 
-    <section class="mx-auto max-w-7xl px-4 py-16">
-        <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div data-reveal="left">
-                <span class="text-sm font-bold uppercase tracking-wider text-indigo-600">Our Story</span>
-                <h2 class="mt-2 text-3xl font-extrabold text-slate-900">Digital products made simple</h2>
-                <div class="prose prose-slate mt-4 max-w-none text-slate-600">
+    <div style="max-width:1272px;width:95%;margin:38px auto;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;">
+            <div>
+                <span style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#1D4ED8;">Why Digital Store</span>
+                <h2 style="margin-top:8px;font-size:30px;font-weight:800;color:#1A1D23;">Digital products made simple</h2>
+                <div style="margin-top:14px;color:#2f2f2f;font-size:16px;line-height:1.75;">
                     <p>
                         {{ setting('site_name', config('app.name')) }} is your trusted destination for premium digital products and
                         subscriptions. We make it easy to discover, purchase and instantly access the tools and services you need —
                         without the wait, paperwork or shipping.
                     </p>
-                    <p>
+                    <p style="margin-top:12px;">
                         From the moment you place an order, everything is automated: secure payment, instant digital delivery,
                         and a professional invoice delivered straight to your inbox. Our team is always a message away should you
                         need a hand.
                     </p>
                 </div>
 
-                <div class="mt-8 grid grid-cols-3 gap-4">
+                <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
                     @foreach ([
                         ['value' => '100%', 'label' => 'Digital delivery'],
                         ['value' => '24/7', 'label' => 'Customer support'],
                         ['value' => 'Secure', 'label' => 'Trusted payments'],
                     ] as $stat)
-                        <div class="rounded-2xl border border-slate-200 bg-white p-4 text-center">
-                            <div class="text-2xl font-extrabold text-indigo-600">{{ $stat['value'] }}</div>
-                            <div class="mt-1 text-xs font-medium text-slate-500">{{ $stat['label'] }}</div>
+                        <div style="border:1.5px solid var(--border);background:#fff;border-radius:12px;padding:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05);">
+                            <div style="font-size:24px;font-weight:900;color:#1D4ED8;">{{ $stat['value'] }}</div>
+                            <div style="margin-top:2px;font-size:12.5px;font-weight:600;color:#6b7280;">{{ $stat['label'] }}</div>
                         </div>
                     @endforeach
                 </div>
             </div>
 
-            <div class="grid gap-4 sm:grid-cols-2" data-reveal="right">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
                 @foreach ([
-                    ['icon' => 'bolt', 'title' => 'Instant Access', 'text' => 'Your products are unlocked the moment your payment is confirmed.'],
-                    ['icon' => 'shield-check', 'title' => 'Secure & Safe', 'text' => 'Payments are processed through trusted, PCI-compliant gateways.'],
-                    ['icon' => 'globe', 'title' => 'Global Reach', 'text' => 'Purchase from anywhere and access your products worldwide.'],
-                    ['icon' => 'receipt', 'title' => 'Professional Invoices', 'text' => 'Every order includes a downloadable PDF invoice.'],
+                    ['icon' => '⚡', 'title' => 'Instant Access', 'text' => 'Your products are unlocked the moment your payment is confirmed.'],
+                    ['icon' => '🛡️', 'title' => 'Secure & Safe', 'text' => 'Payments are processed through trusted gateways.'],
+                    ['icon' => '🌍', 'title' => 'Global Reach', 'text' => 'Purchase from anywhere and access your products worldwide.'],
+                    ['icon' => '🧾', 'title' => 'Professional Invoices', 'text' => 'Every order includes a downloadable PDF invoice.'],
                 ] as $card)
-                    <div class="rounded-2xl border border-slate-200 bg-white p-6 transition hover:shadow-lg">
-                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-                            <x-ui-icon :name="$card['icon']" class="h-6 w-6" />
-                        </span>
-                        <h3 class="mt-4 font-bold text-slate-900">{{ $card['title'] }}</h3>
-                        <p class="mt-1 text-sm text-slate-500">{{ $card['text'] }}</p>
+                    <div style="border:1.5px solid var(--border);background:#fff;border-radius:12px;padding:18px;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.05);">
+                        <div style="font-size:26px;">{{ $card['icon'] }}</div>
+                        <h3 style="margin-top:10px;font-weight:800;font-size:16px;color:#1A1D23;">{{ $card['title'] }}</h3>
+                        <p style="margin-top:4px;font-size:13.5px;color:#6b7280;line-height:1.6;">{{ $card['text'] }}</p>
                     </div>
                 @endforeach
             </div>
         </div>
-    </section>
+    </div>
 
     @if ($categories->isNotEmpty())
-        <section class="border-t border-slate-200 bg-white py-16">
-            <div class="mx-auto max-w-7xl px-4 text-center">
-                <h2 class="text-3xl font-extrabold text-slate-900">What we offer</h2>
-                <p class="mx-auto mt-2 max-w-xl text-slate-500">Explore our curated categories of digital products.</p>
-                <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <div class="products-container" style="margin:34px auto 50px;padding:26px;">
+            <div style="text-align:center;">
+                <h2 style="font-size:25px;font-weight:800;color:#1A1D23;">What we offer</h2>
+                <p style="margin-top:4px;color:#6b7280;">Explore our curated categories of digital products.</p>
+                <div style="margin-top:18px;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;">
                     @foreach ($categories as $category)
                         <a href="{{ route('products.index', ['category' => $category->slug]) }}"
-                           class="rounded-full border border-slate-200 bg-slate-50 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700">
+                           style="display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:#fff;border-radius:99px;padding:8px 18px;font-size:14px;font-weight:700;color:#374151;transition:all .15s;">
+                            @if ($category->image)
+                                <img src="{{ media_url($category->image) }}" alt="" style="width:20px;height:20px;object-fit:contain;border-radius:4px;">
+                            @endif
                             {{ $category->name }}
                         </a>
                     @endforeach
                 </div>
             </div>
-        </section>
+        </div>
     @endif
 @endsection

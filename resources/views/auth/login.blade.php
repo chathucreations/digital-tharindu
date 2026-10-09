@@ -19,7 +19,7 @@
             <label for="email" class="mb-1.5 block text-sm font-semibold text-slate-700">Email address</label>
             <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="username"
                    placeholder="you@example.com"
-                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             @error('email')
                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
             @enderror
@@ -29,12 +29,12 @@
             <div class="mb-1.5 flex items-center justify-between">
                 <label for="password" class="block text-sm font-semibold text-slate-700">Password</label>
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Forgot password?</a>
+                    <a href="{{ route('password.request') }}" class="text-xs font-semibold text-[#1D4ED8] hover:text-[#052f88]">Forgot password?</a>
                 @endif
             </div>
             <input id="password" name="password" type="password" required autocomplete="current-password"
                    placeholder="••••••••"
-                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                   class="w-full rounded-xl border-slate-300 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500">
             @error('password')
                 <p class="mt-1.5 text-sm text-rose-600">{{ $message }}</p>
             @enderror
@@ -42,7 +42,7 @@
 
         <label for="remember_me" class="flex items-center gap-2.5 text-sm text-slate-600">
             <input id="remember_me" type="checkbox" name="remember"
-                   class="rounded border-slate-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                   class="rounded border-slate-300 text-[#1D4ED8] shadow-sm focus:ring-blue-500">
             Keep me signed in
         </label>
 
@@ -56,7 +56,7 @@
         @endif
 
         <button type="submit"
-                class="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                class="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#1D4ED8]/30 transition hover:bg-[#052f88] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             <x-ui-icon name="lock" class="h-4 w-4" /> Sign In
         </button>
     </form>
@@ -82,6 +82,6 @@
     <p class="mt-7 text-center text-sm text-slate-500">
         Don't have an account?
         <a href="{{ route('register', request()->filled('redirect') ? ['redirect' => request('redirect')] : []) }}"
-           class="font-bold text-indigo-600 hover:text-indigo-700">Create one</a>
+           class="font-bold text-[#1D4ED8] hover:text-[#052f88]">Create one</a>
     </p>
 </x-guest-layout>

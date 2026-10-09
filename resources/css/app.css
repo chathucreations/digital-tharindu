@@ -1,3 +1,7 @@
+/* EGX.lk design system (colors, header, sections, footer, responsive) */
+@import './egx.css';
+@import './egx-custom.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -124,4 +128,13 @@
     .animate-pulse-ring {
         animation: none !important;
     }
+}
+
+/*
+ * Because the EGX design system ships its own reset (margin/padding/box-sizing),
+ * re-assert sensible Tailwind preflight defaults that would otherwise be missing
+ * when the two stacks are combined.
+ */
+html {
+    -webkit-text-size-adjust: 100%;
 }

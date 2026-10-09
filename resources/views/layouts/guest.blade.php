@@ -18,7 +18,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -27,7 +27,7 @@
     @endif
 
     <style>
-        body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
+        body { font-family: 'PT Sans', ui-sans-serif, system-ui, sans-serif; }
     </style>
 </head>
 <body class="overflow-x-hidden bg-slate-50 text-slate-800 antialiased">
@@ -36,7 +36,7 @@
     <div class="flex min-h-screen">
         <!-- Brand panel -->
         <aside class="relative hidden w-1/2 overflow-hidden bg-slate-900 lg:flex lg:flex-col lg:justify-between">
-            <div class="absolute inset-0 bg-gradient-to-br from-indigo-700 via-indigo-600 to-violet-700"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-[#052f88] via-[#1d3fa8] to-[#1D4ED8]"></div>
             <div class="absolute -left-16 -top-16 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
             <div class="absolute bottom-0 right-0 h-80 w-80 translate-x-1/4 translate-y-1/4 rounded-full bg-fuchsia-500/20 blur-3xl"></div>
 
@@ -54,7 +54,7 @@
 
                 <div>
                     <h2 class="max-w-md text-4xl font-extrabold leading-tight">{{ setting('tagline', 'Premium digital products, delivered instantly.') }}</h2>
-                    <p class="mt-4 max-w-md text-indigo-100">{{ setting('site_description', 'Buy, download and manage your digital subscriptions in one place.') }}</p>
+                    <p class="mt-4 max-w-md text-blue-100">{{ setting('site_description', 'Buy, download and manage your digital subscriptions in one place.') }}</p>
 
                     <ul class="mt-10 space-y-4">
                         @foreach ([
@@ -66,13 +66,13 @@
                                 <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/20">
                                     <x-ui-icon :name="$item['icon']" class="h-4 w-4" />
                                 </span>
-                                <span class="text-sm font-medium text-indigo-50">{{ $item['text'] }}</span>
+                                <span class="text-sm font-medium text-blue-50">{{ $item['text'] }}</span>
                             </li>
                         @endforeach
                     </ul>
                 </div>
 
-                <p class="text-xs text-indigo-200">&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</p>
+                <p class="text-xs text-blue-200">&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</p>
             </div>
         </aside>
 
@@ -83,7 +83,7 @@
                     @if (setting('logo'))
                         <img src="{{ media_url(setting('logo')) }}" alt="{{ $siteName }}" class="h-10 w-auto">
                     @else
-                        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 text-base font-extrabold text-white">{{ strtoupper(substr($siteName, 0, 1)) }}</span>
+                        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1D4ED8] text-base font-extrabold text-white">{{ strtoupper(substr($siteName, 0, 1)) }}</span>
                         <span class="text-lg font-extrabold text-slate-900">{{ $siteName }}</span>
                     @endif
                 </a>
@@ -93,7 +93,7 @@
                 </div>
 
                 <p class="mt-6 text-center text-xs text-slate-400">
-                    <a href="{{ route('home') }}" class="hover:text-indigo-600">&larr; Back to store</a>
+                    <a href="{{ route('home') }}" class="hover:text-blue-600">&larr; Back to store</a>
                 </p>
             </div>
         </main>
